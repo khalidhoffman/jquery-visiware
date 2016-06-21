@@ -1,5 +1,5 @@
 # jquery-visiware
-Another jQuery UI Plugin. Useful for scroll events.
+Another jQuery Plugin. Useful for scroll events.
 
 ## Example Usage
 ```javascript
@@ -16,13 +16,16 @@ Another jQuery UI Plugin. Useful for scroll events.
 ```
 
 ## Options
-Property Name       | Default | Type      | Description
---------------------|---------|-----------|---------------------------------------------------------
-once                | false   | Boolean   | Whether to call visiblity function once
-triggerAreaPercent  | .75     | Float     | Amount of scroll distance relative to the elements height required to trigger event
-onScrollOnly        | false   | Boolean   | Whether to only check for visiblity on scroll
-once                | false   | Boolean   | Whether to execute only once
-onScrolled          | false   | Function  | executes when element has been scrolled passed 
-onVisible           | false   | Function  | executes when the element is considered visible
-onEntirelyVisible   | false   | Function  | executes when the element is entirely visible
-onHidden            | false   | Function  | executes when the element is not visible
+Property Name               | Default | Type      | Description
+----------------------------|---------|-----------|---------------------------------------------------------
+once                        | false   | Boolean   | Whether to call visiblity function once
+triggerAreaPercent          | .75     | Float     | Amount of scroll distance relative to the elements height required to trigger event
+onScrollOnly                | false   | Boolean   | Whether to only check for visiblity on scroll
+once                        | false   | Boolean   | Whether to execute only once
+onScrolled                  | false   | Function  | executes when element has been scrolled passed 
+onVisible                   | false   | Function  | executes when the element is considered visible
+onEntirelyVisible           | false   | Function  | executes when the element is entirely visible
+onHidden                    | false   | Function  | executes when the element is not visible
+isVisibleTriggerActive      | false   | Boolean   | Whether to trigger 'visible' events
+isEntireVisibleTriggerActive| false   | Boolean   | Whether to trigger 'entirelyVisible' events
+isScrolledTriggerActive     | false   | Boolean   | Whether to trigger 'scrolled' events
