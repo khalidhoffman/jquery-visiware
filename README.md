@@ -18,13 +18,13 @@ Another jQuery Plugin. Useful for scroll events.
 ## Options
 Property Name               | Default | Type      | Description
 ----------------------------|---------|-----------|---------------------------------------------------------
-once                        | false   | Boolean   | Whether to call visiblity function once
+once                        | false   | Boolean   | Whether to call visibility function once
 triggerAreaPercent          | .75     | Float     | Amount of scroll distance relative to the elements height required to trigger event
-onScrollOnly                | false   | Boolean   | Whether to only check for visiblity on scroll
+onScrollOnly                | false   | Boolean   | Whether to only check for visibility on scroll
 once                        | false   | Boolean   | Whether to execute only once
 onScrolled                  | false   | Function  | Executes when element has been scrolled passed 
 onVisible                   | false   | Function  | Executes when the element is considered visible
-onVisible                   | false   | Function  | Executes when the element is considered visible. arguments: (percentVisible, vaeInstance, index)
+onVisibleTick               | false   | Function  | Executes on each tick during which the element is considered visible. arguments: (percentVisible, vaeInstance, index)
 onEntirelyVisible           | false   | Function  | Executes when the element is entirely visible
 onHidden                    | false   | Function  | Executes when the element is not visible
 isVisibleTriggerActive      | false   | Boolean   | Whether to trigger 'visible' events
@@ -34,10 +34,10 @@ isScrolledTriggerActive     | false   | Boolean   | Whether to trigger 'scrolled
 ## Methods
 Method Name                 | Description
 ----------------------------|-------------------------------------------------------
-activate                    | Starts listening on the vaeInstance
-deactivate                  | Stops listening on the vaeInstance
-empty                       | Stops listening on all vaeInstances
-update                      | Updates scroll points and options on vaeInstance
+activate                    | Starts listening on the `vaeInstance`
+deactivate                  | Stops listening on the `vaeInstance`
+empty                       | Stops listening on all `vaeInstance`s
+update                      | Updates scroll points and options on `vaeInstance`
 get                         | Accepts either 'scrollStartPoint' or 'scrollEndPoint' as secondary arguments. Returns each respectively
-isActive                    | Returns whether the vaeInstance is listening for scroll changes
+isActive                    | Returns whether the `vaeInstance` is listening for scroll changes
 
