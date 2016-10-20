@@ -371,30 +371,30 @@ function Visiware(require) {
         _onScroll: function (index) {
             if (this.options.debug >= 2) console.log('onScroll: %o', this);
 
-            if (this.options.onTick) this.options.onTick.apply(this.element, [this._getPercentage(), this, index]);
+            if (this.options.onTick) this.options.onTick.apply(this, [this._getPercentage(), this, index]);
             if (this.options.onVisibleTick) {
                 var visibilityPercentage = this._getPercentage();
                 if (visibilityPercentage >= 0 && visibilityPercentage < 101) {
-                    this.options.onVisibleTick.apply(this.element, [visibilityPercentage, this, index]);
+                    this.options.onVisibleTick.apply(this, [visibilityPercentage, this, index]);
                 }
             }
             if (this.options.onVisible && this._isVisible()) {
                 this._isPrevVisible = true;
-                this.options.onVisible.apply(this.element, arguments); // run callback if provided
+                this.options.onVisible.apply(this, arguments); // run callback if provided
                 if (this.options.isVisibleTriggerActive) this._trigger('visible');
 
             } else if (this.options.onEntirelyVisible && this._isEntirelyVisible()) {
                 this._isPrevVisible = true;
-                this.options.onEntirelyVisible.apply(this.element, arguments); // run callback if provided
+                this.options.onEntirelyVisible.apply(this, arguments); // run callback if provided
                 if (this.options.isEntireVisibleTriggerActive) this._trigger('entirelyVisible');
 
             } else if (this.options.onScrolled && this._isScrolled()) {
                 this._isPrevVisible = true;
-                this.options.onScrolled.apply(this.element, arguments); // run callback if provided
+                this.options.onScrolled.apply(this, arguments); // run callback if provided
                 if (this.options.isScrolledTriggerActive) this._trigger('scrolled');
 
             } else if (this._isPrevVisible) {
-                if (this.options.onHidden) this.options.onHidden.apply(this.element, arguments); // run callback if provided
+                if (this.options.onHidden) this.options.onHidden.apply(this, arguments); // run callback if provided
                 this._isPrevVisible = false;
             }
 
