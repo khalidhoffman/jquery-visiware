@@ -203,6 +203,7 @@ function Visiware(require) {
         this.element = el;
         this.options = options;
         this.engine = globalEngine;
+        this.parentDOMNode = document.body;
         return this;
     }
 
@@ -223,8 +224,7 @@ function Visiware(require) {
             } else if (this.options.scrollStartPoint === 0) {
                 return 0;
             } else {
-                //var relativeTop = this.element[0].getBoundingClientRect().top;
-                var result = (this.element.offset().top - ($window.height() * this.options.triggerAreaPercent));
+                var result = (this.element.offset().top - (window.innerHeight * this.options.triggerAreaPercent));
                 return (result < 0) ? 0 : result;
             }
         },
@@ -347,20 +347,20 @@ function Visiware(require) {
 
         _isEntirelyVisible: function () {
             this.currentRect = this.element[0].getBoundingClientRect();
-            return (this.currentRect.top > 0 && this.currentRect.bottom < window.innerHeight);
+            return (this.currentRect.top > 0 && this.currentRect.bottom < this.parentDOMNode.clientHeight);
         },
 
         _isVisible: function () {
-            var scrollYPosition = $window.scrollTop();
+            var scrollYPosition = this.parentScrollTop;
             return (scrollYPosition >= this._getScrollStartPoint() && scrollYPosition <= this._getScrollEndPoint());
         },
         _isScrolled: function () {
-            var scrollYPosition = $window.scrollTop();
+            var scrollYPosition = this.parentScrollTop;
             return (scrollYPosition >= this._getScrollStartPoint());
         },
 
         _getPercentage: function () {
-            return (100 * ($window.scrollTop() - this._getScrollStartPoint()) / (this._getScrollEndPoint() - this._getScrollStartPoint()));
+            return (100 * (this.parentScrollTop - this._getScrollStartPoint()) / (this._getScrollEndPoint() - this._getScrollStartPoint()));
         },
 
         /**
@@ -370,6 +370,7 @@ function Visiware(require) {
          */
         _onScroll: function (index) {
             if (this.options.debug >= 2) console.log('onScroll: %o', this);
+            this.parentScrollTop = this.parentDOMNode.scrollTop;
 
             if (this.options.onTick) this.options.onTick.apply(this, [this._getPercentage(), this, index]);
             if (this.options.onVisibleTick) {
