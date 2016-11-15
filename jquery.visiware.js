@@ -1,18 +1,17 @@
 if (typeof define !== 'function') {
     /* Define Visiware plugin */
-    Visiware(function () {
-        return jQuery;
+    Visiware((require && require('jquery')) ? require('jquery') : jQuery);
+} else {
+    define(['require', 'jquery'], function(require){
+        Visiware(require('jquery'))
     });
-    /* stub define function */
-    define = function () {};
 }
 
-define(['require', 'jquery'], Visiware);
 
-function Visiware(require) {
+function Visiware($) {
+    if (!$) throw new Error("jQuery is not defined");
 
-    var $ = require('jquery') || jQuery,
-        $window = $(window);
+    var $window = $(window);
 
     function VAEEngine() {
 
