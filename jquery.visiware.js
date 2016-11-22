@@ -202,7 +202,7 @@ function Visiware($) {
         this.element = el;
         this.options = options;
         this.engine = globalEngine;
-        this.parentDOMNode = document.body;
+        this.parentDOMNode = document.documentElement;
         return this;
     }
 
@@ -369,7 +369,7 @@ function Visiware($) {
          */
         _onScroll: function (index) {
             if (this.options.debug >= 2) console.log('onScroll: %o', this);
-            this.parentScrollTop = this.parentDOMNode.scrollTop;
+            this.parentScrollTop = window.pageYOffset;
 
             if (this.options.onTick) this.options.onTick.apply(this, [this._getPercentage(), this, index]);
             if (this.options.onVisibleTick) {
