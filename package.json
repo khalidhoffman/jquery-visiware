@@ -1,0 +1,22 @@
+{
+  "name": "jquery-visiware",
+  "version": "0.0.1",
+  "description": "jQuery scroll event plugin",
+  "main": "jquery.visiware.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khalidhoffman/jquery-visiware.git"
+  },
+  "keywords": [
+    "jQuery",
+    "scroll",
+    "event",
+    "plugin"
+  ],
+  "author": "Khalid Hoffman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khalidhoffman/jquery-visiware/issues"
+  },
+  "homepage": "https://github.com/khalidhoffman/jquery-visiware#readme"
+}
