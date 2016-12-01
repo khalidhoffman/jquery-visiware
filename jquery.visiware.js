@@ -18,7 +18,7 @@ function Visiware($) {
         this._instances = [];
         this._options = {
             intervalDuration: 25,
-            timeoutDuration: 500,
+            timeoutDuration: 1000,
             onScrollOnly: true
         };
         this._isListening = false;
@@ -198,6 +198,8 @@ function Visiware($) {
 
     function VAE(el, options) {
         this._isPrevVisible = false;
+        this._isPrevScrolled = false;
+        this._isPrevEntirelyVisible = false;
         this._isInstanceListening = false;
         this.element = el;
         this.options = options;
@@ -233,7 +235,7 @@ function Visiware($) {
                 //assume to be function
                 return this.options.scrollEndPoint.apply(this, arguments);
             }
-            return ((this.options.scrollEndPoint || this.options.scrollEndPoint === 0) ? this.options.scrollEndPoint : (this.element.offset().top + this.element.outerHeight()));
+            return ((this.options.scrollEndPoint || this.options.scrollEndPoint === 0) ? this.options.scrollEndPoint : (this.element[0].getBoundingClientRect().top + document.body.scrollTop + this.element[0].offsetHeight));
         },
 
         empty: function () {
@@ -350,12 +352,10 @@ function Visiware($) {
         },
 
         _isVisible: function () {
-            var scrollYPosition = this.parentScrollTop;
-            return (scrollYPosition >= this._getScrollStartPoint() && scrollYPosition <= this._getScrollEndPoint());
+            return (this.parentScrollTop >= this._getScrollStartPoint() && this.parentScrollTop <= this._getScrollEndPoint());
         },
         _isScrolled: function () {
-            var scrollYPosition = this.parentScrollTop;
-            return (scrollYPosition >= this._getScrollStartPoint());
+            return (this.parentScrollTop >= this._getScrollStartPoint());
         },
 
         _getPercentage: function () {
@@ -378,27 +378,29 @@ function Visiware($) {
                     this.options.onVisibleTick.apply(this, [visibilityPercentage, this, index]);
                 }
             }
-            if (this.options.onVisible && this._isVisible()) {
+            if (!this._isPrevVisible && this.options.onVisible && this._isVisible()) {
                 this._isPrevVisible = true;
                 this.options.onVisible.apply(this, arguments); // run callback if provided
                 if (this.options.isVisibleTriggerActive) this._trigger('visible');
 
-            } else if (this.options.onEntirelyVisible && this._isEntirelyVisible()) {
-                this._isPrevVisible = true;
+            } else if (!this._isPrevEntirelyVisible && this.options.onEntirelyVisible && this._isEntirelyVisible()) {
+                this._isPrevEntirelyVisible = true;
                 this.options.onEntirelyVisible.apply(this, arguments); // run callback if provided
                 if (this.options.isEntireVisibleTriggerActive) this._trigger('entirelyVisible');
 
-            } else if (this.options.onScrolled && this._isScrolled()) {
-                this._isPrevVisible = true;
+            } else if (!this._isPrevScrolled && this.options.onScrolled && this._isScrolled()) {
+                this._isPrevScrolled = true;
                 this.options.onScrolled.apply(this, arguments); // run callback if provided
                 if (this.options.isScrolledTriggerActive) this._trigger('scrolled');
 
-            } else if (this._isPrevVisible) {
+            } else if (this._isPrevVisible || this._isPrevEntirelyVisible || this._isPrevScrolled) {
                 if (this.options.onHidden) this.options.onHidden.apply(this, arguments); // run callback if provided
                 this._isPrevVisible = false;
+                this._isPrevEntirelyVisible = false;
+                this._isPrevScrolled = false;
             }
 
-            if (this._isPrevVisible === true && this.options.once === true) {
+            if ((this._isPrevVisible || this._isPrevEntirelyVisible || this._isPrevScrolled) && this.options.once === true) {
                 this._unsubscribe();
             }
         }
@@ -442,4 +444,3 @@ function Visiware($) {
     };
 
 }
-
