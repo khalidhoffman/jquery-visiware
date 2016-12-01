@@ -341,7 +341,6 @@ function Visiware($) {
         },
 
         _destroy: function () {
-            if (this._superApply) this._superApply.apply(this, arguments); // _superApply is a parent function provided by jquery-ui
             this.deactivate();
             return this;
         },

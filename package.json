@@ -1,6 +1,6 @@
 {
   "name": "jquery-visiware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "jQuery scroll event plugin",
   "main": "jquery.visiware.js",
   "repository": {
